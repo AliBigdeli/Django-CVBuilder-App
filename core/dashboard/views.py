@@ -17,8 +17,8 @@ class DashboardIndex(LoginRequiredMixin, TemplateView):
     template_name = 'dashboard/index.html'
 
 
-class DescriptionView(LoginRequiredMixin, TemplateView):
-    template_name = 'dashboard/description_mgmt.html'
+class DashboardProfileListView(LoginRequiredMixin, TemplateView):
+    template_name = 'dashboard/profile_list.html'
 
 
 class SkillView(LoginRequiredMixin, TemplateView):
