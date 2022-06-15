@@ -12,6 +12,7 @@ from django.db.models import F, Max
 
 
 class UserProfile(models.Model):
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True)
     EXPERIENCE_LEVEL = ((1, "0-3 Years"), (2, "3-5 Years"), (3, "5-10 Years"),(4, "10+ Years"))
     avatar = models.ImageField(
         upload_to="images/avatar/", blank=True, null=True)
@@ -98,8 +99,8 @@ class WorkExperience(models.Model):
     start_month = models.CharField(max_length=5)
     start_year = models.CharField(max_length=5)
     still_work = models.BooleanField(default=False)
-    end_month = models.CharField(max_length=5)
-    end_year = models.CharField(max_length=5)
+    end_month = models.CharField(max_length=5,null=True,blank=True)
+    end_year = models.CharField(max_length=5,null=True,blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
@@ -116,8 +117,10 @@ class EducationExperience(models.Model):
     university_location = models.CharField(max_length=255)
     degree = models.CharField(max_length=255)
     field = models.CharField(max_length=255)
-    still_educate = models.BooleanField(default=False)
     description = models.TextField(null=True, blank=True)
+    start_month = models.CharField(max_length=5,null=True)
+    start_year = models.CharField(max_length=5,null=True)
+    still_educate = models.BooleanField(default=False)
     end_month = models.CharField(max_length=5)
     end_year = models.CharField(max_length=5)
     created_date = models.DateTimeField(auto_now_add=True)
