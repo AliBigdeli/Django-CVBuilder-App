@@ -39,7 +39,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(pattern_name='dashboard:index'), name='home'),
+    # path('', RedirectView.as_view(pattern_name='dashboard:index'), name='home'),
     path("api-auth/", include("rest_framework.urls")),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
