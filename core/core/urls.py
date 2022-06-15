@@ -25,9 +25,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Advisor Api",
+        title="CV Builder Api",
         default_version="v1",
-        description="this is a test api for advisor project",
+        description="this is a test api for Cv Builder project",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="bigdeli.ali3@gmail.com"),
         license=openapi.License(name="MIT License"),
@@ -39,10 +39,11 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', RedirectView.as_view(pattern_name='dashboard:index'), name='home'),
+    path('', RedirectView.as_view(pattern_name='dashboard:index'), name='home'),
     path("api-auth/", include("rest_framework.urls")),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
+    path('cv-builder/', include('cv_builder.urls')),
     path('summernote/', include('django_summernote.urls')),
     path(
         "swagger/",

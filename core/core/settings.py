@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'dashboard',
+    'cv_builder',
     "rest_framework",
     "django_filters",
     "drf_yasg",

@@ -7,16 +7,21 @@ from django.db import models
 import os
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
+from django.db import models,transaction
+from django.db.models import F, Max
 
 
 class UserProfile(models.Model):
-    GENDER_CHOICE = (("M", "Male"), ("F", "Female"), ("O", "Other"))
-    avatar = models.ImageField(upload_to="images/avatar/", blank=True, null=True)
+    EXPERIENCE_LEVEL = ((1, "0-3 Years"), (2, "3-5 Years"), (3, "5-10 Years"),(4, "10+ Years"))
+    avatar = models.ImageField(
+        upload_to="images/avatar/", blank=True, null=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
-    about = models.TextField
+    about = models.TextField()
     email = models.EmailField(max_length=255)
+    country = models.CharField(max_length=255)
+    years_level = models.IntegerField(choices=EXPERIENCE_LEVEL,default=1)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
@@ -30,9 +35,61 @@ class UserProfile(models.Model):
             return ""
 
 
+class OrderManager(models.Manager):
+    """ Manager to encapsulate bits of business logic """
+    def move(self, obj, new_order):
+        """ Move an object to a new order position """
+
+        object_query = self.get_queryset()
+
+        with transaction.atomic():
+            if obj.order > int(new_order):
+                object_query.filter(
+                    profile=obj.profile,
+                    order__lt=obj.order,
+                    order__gte=new_order,
+                ).exclude(
+                    pk=obj.pk
+                ).update(
+                    order=F('order') + 1,
+                )
+            else:
+                object_query.filter(
+                    profile=obj.profile,
+                    order__lte=new_order,
+                    order__gt=obj.order,
+                ).exclude(
+                    pk=obj.pk,
+                ).update(
+                    order=F('order') - 1,
+                )
+
+            obj.order = new_order
+            obj.save()
+    
+    def create(self, **kwargs):
+        instance = self.model(**kwargs)
+
+        with transaction.atomic():
+            # Get our current max order number
+            results = self.filter(
+                profile=instance.profile
+            ).aggregate(
+                Max('order')
+            )
+
+            # Increment and use it for our new object
+            current_order = results['order__max']
+            if current_order is None:
+                current_order = 0
+            value = current_order + 1
+            instance.order = value
+            instance.save()
+            return instance
 
 class WorkExperience(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
     title = models.CharField(max_length=255)
     employer = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
@@ -46,16 +103,19 @@ class WorkExperience(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    objects = OrderManager()
+    
     def __str__(self):
         return f"{self.profile} - {self.title}"
 
 
 class EducationExperience(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
     university_name = models.CharField(max_length=255)
     university_location = models.CharField(max_length=255)
     degree = models.CharField(max_length=255)
-    field = models.CharField(max_length=255)    
+    field = models.CharField(max_length=255)
     still_educate = models.BooleanField(default=False)
     description = models.TextField(null=True, blank=True)
     end_month = models.CharField(max_length=5)
@@ -63,61 +123,79 @@ class EducationExperience(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    objects = OrderManager()
+    
     def __str__(self):
         return f"{self.profile} - {self.title}"
 
+
 class Skill(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
     name = models.CharField(max_length=255)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    objects = OrderManager()
+    
     def __str__(self):
         return f"{self.profile} - {self.name}"
 
 
-
-class Links(models.Model):
+class Link(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
     url = models.URLField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    objects = OrderManager()
+    
     def __str__(self):
         return f"{self.profile} - {self.url}"
 
 
 class Achievement(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.profile} - {self.title}"
-
-
-class Affiliation(models.Model):
-    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"{self.profile} - {self.title}"
     
+    objects = OrderManager()
+    
+    def __str__(self):
+        return f"{self.profile} - {self.title}"
+
+
+class Affiliate(models.Model):
+    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
+
+    objects = OrderManager()
+    
+    def __str__(self):
+        return f"{self.profile} - {self.title}"
+
 
 class Certification(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    objects = OrderManager()
+    
     def __str__(self):
         return f"{self.profile} - {self.title}"
+
 
 class Additional(models.Model):
     profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
@@ -128,18 +206,19 @@ class Additional(models.Model):
     def __str__(self):
         return f"{self.profile}"
 
+
 class Language(models.Model):
     profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
-    LANGUAGE_LEVEL = ((1, "Native"),(2, "Beginner"),(3, "Elementary"), (4, "Intermediate"), (5, "Upper intermediate")
+    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    LANGUAGE_LEVEL = ((1, "Native"), (2, "Beginner"), (3, "Elementary"),
+                      (4, "Intermediate"), (5, "Upper intermediate"),
                       (6, "Advanced"), (7, "Proficient"))
     name = models.CharField(max_length=255)
-    level = models.CharField(max_length=255, choices=LANGUAGE_LEVEL,default=1)
+    level = models.CharField(max_length=255, choices=LANGUAGE_LEVEL, default=1)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
+    objects = OrderManager()
+    
     def __str__(self):
         return f"{self.profile} - {self.name}"
-
-
-
-

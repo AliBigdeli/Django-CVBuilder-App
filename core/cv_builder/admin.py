@@ -3,60 +3,68 @@ from django.contrib import admin
 # Register your models here.
 from .models import *
 
-class ResumeAdmin(admin.ModelAdmin):
+class UserProfileAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = ('profile','title','created_date')
-    list_filter = ('profile','created_date')
-    search_fields = ['profile']
-
-class ResumeFileAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
-    list_display = ('profile','file','created_date')
+    list_display = ('id','first_name','last_name','email','phone_number','created_date')
     list_filter = ('created_date',)
-
-class VideoIntroFileAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
-    list_display = ('profile','file','created_date')
-    list_filter = ('created_date',)
-
-class EducationExperienceAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
-    list_display = ('resume','grade','field','still_educate','created_date')
-    list_filter = ('created_date','resume','grade','still_educate')
+    search_fields = ['first_name','last_name','email','phone_number','about']
 
 class WorkExperienceAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = ('resume','title','company','still_work','created_date')
+    list_display = ('id','profile','title','employer','still_work','created_date')
     list_filter = ('created_date','still_work')
 
-class AchievementAdmin(admin.ModelAdmin):
+class EducationExperienceAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = ('resume','title','created_date')
-    list_filter = ('created_date','resume')
-
-class SocialAccountAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
-    list_display = ('resume','type','created_date')
-    list_filter = ('created_date','resume')
-
-class LanguageAdmin(admin.ModelAdmin):
-    empty_value_display = '-empty-'
-    list_display = ('resume','name','grade','created_date')
-    list_filter = ('created_date','resume')
+    list_display = ('id','profile','degree','field','still_educate','created_date')
+    list_filter = ('created_date','still_educate')
 
 class SkillAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
-    list_display = ('resume','name','level','created_date')
-    list_filter = ('created_date','resume')
+    list_display = ('id','profile','name','created_date')
+    list_filter = ('created_date',)
 
-admin.site.register(Resume,ResumeAdmin)
+
+class LinkAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = ('id','profile','url','created_date')
+    list_filter = ('created_date',)
+
+
+class AchievementAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = ('id','profile','title','created_date')
+    list_filter = ('created_date',)
+    
+class AffiliateAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = ('id','profile','title','created_date')
+    list_filter = ('created_date',)
+
+class CertificationAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = ('id','profile','title','created_date')
+    list_filter = ('created_date',)
+
+class AdditionalAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = ('id','profile','created_date')
+    list_filter = ('created_date',)
+
+class LanguageAdmin(admin.ModelAdmin):
+    empty_value_display = '-empty-'
+    list_display = ('id','profile','name','level','created_date')
+    list_filter = ('created_date',)
+
+
+
+admin.site.register(UserProfile,UserProfileAdmin)
 admin.site.register(EducationExperience,EducationExperienceAdmin)
 admin.site.register(WorkExperience,WorkExperienceAdmin)
 admin.site.register(Achievement,AchievementAdmin)
-admin.site.register(ResumeFile,ResumeFileAdmin)
-admin.site.register(VideoIntroFile,VideoIntroFileAdmin)
-admin.site.register(ResumeSkill)
-admin.site.register(ResumeLocation)
-admin.site.register(SocialAccount,SocialAccountAdmin)
+admin.site.register(Link,LinkAdmin)
+admin.site.register(Affiliate,AffiliateAdmin)
+admin.site.register(Certification,CertificationAdmin)
+admin.site.register(Additional,AdditionalAdmin)
 admin.site.register(Language,LanguageAdmin)
 admin.site.register(Skill,SkillAdmin)
