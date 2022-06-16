@@ -93,6 +93,36 @@ class EducationDetailView(generics.RetrieveUpdateDestroyAPIView):
         return get_object_or_404(EducationExperience, pk=self.kwargs.get('education_id'), profile__id=self.kwargs.get('profile_id'))
 
 
+
+class EducationMoveView(generics.GenericAPIView):
+    serializer_class = EducationOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_order = serializer.validated_data['order']
+        obj = get_object_or_404(EducationExperience,pk=serializer.validated_data['item_id'])
+        # Make sure we received an order
+        if new_order is None:
+            return Response(
+                data={'error': 'No order given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Make sure our new order is not below one
+        if int(new_order) < 1:
+            return Response(
+                data={'error': 'Order cannot be zero or below'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        EducationExperience.objects.move(obj, new_order)
+
+        return Response({'success': True, 'order': new_order})
+
+
+
 class SkillListCreateView(generics.ListCreateAPIView):
     serializer_class = SkillSerializer
     permission_classes = [IsAuthenticated]
@@ -108,6 +138,33 @@ class SkillDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         return get_object_or_404(Skill, pk=self.kwargs.get('skill_id'), profile__id=self.kwargs.get('profile_id'))
 
+
+class SkillMoveView(generics.GenericAPIView):
+    serializer_class = SkillOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_order = serializer.validated_data['order']
+        obj = get_object_or_404(Skill,pk=serializer.validated_data['item_id'])
+        # Make sure we received an order
+        if new_order is None:
+            return Response(
+                data={'error': 'No order given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Make sure our new order is not below one
+        if int(new_order) < 1:
+            return Response(
+                data={'error': 'Order cannot be zero or below'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        Skill.objects.move(obj, new_order)
+
+        return Response({'success': True, 'order': new_order})
 
 class LinkListCreateView(generics.ListCreateAPIView):
     serializer_class = LinkSerializer
@@ -125,6 +182,33 @@ class LinkDetailView(generics.RetrieveUpdateDestroyAPIView):
         return get_object_or_404(Link, pk=self.kwargs.get('link_id'), profile__id=self.kwargs.get('profile_id'))
 
 
+class LinkMoveView(generics.GenericAPIView):
+    serializer_class = LinkOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_order = serializer.validated_data['order']
+        obj = get_object_or_404(Link,pk=serializer.validated_data['item_id'])
+        # Make sure we received an order
+        if new_order is None:
+            return Response(
+                data={'error': 'No order given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Make sure our new order is not below one
+        if int(new_order) < 1:
+            return Response(
+                data={'error': 'Order cannot be zero or below'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        Link.objects.move(obj, new_order)
+
+        return Response({'success': True, 'order': new_order})
+
 class AchievementListCreateView(generics.ListCreateAPIView):
     serializer_class = AchievementSerializer
     permission_classes = [IsAuthenticated]
@@ -139,6 +223,33 @@ class AchievementDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return get_object_or_404(Achievement, pk=self.kwargs.get('achievement_id'), profile__id=self.kwargs.get('profile_id'))
+
+class AchievementMoveView(generics.GenericAPIView):
+    serializer_class = AchievementOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_order = serializer.validated_data['order']
+        obj = get_object_or_404(Achievement,pk=serializer.validated_data['item_id'])
+        # Make sure we received an order
+        if new_order is None:
+            return Response(
+                data={'error': 'No order given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Make sure our new order is not below one
+        if int(new_order) < 1:
+            return Response(
+                data={'error': 'Order cannot be zero or below'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        Achievement.objects.move(obj, new_order)
+
+        return Response({'success': True, 'order': new_order})
 
 
 class CertificationListCreateView(generics.ListCreateAPIView):
@@ -156,6 +267,34 @@ class CertificationDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         return get_object_or_404(Certification, pk=self.kwargs.get('certification_id'), profile__id=self.kwargs.get('profile_id'))
 
+class CertificationMoveView(generics.GenericAPIView):
+    serializer_class = CertificationOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_order = serializer.validated_data['order']
+        obj = get_object_or_404(Certification,pk=serializer.validated_data['item_id'])
+        # Make sure we received an order
+        if new_order is None:
+            return Response(
+                data={'error': 'No order given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Make sure our new order is not below one
+        if int(new_order) < 1:
+            return Response(
+                data={'error': 'Order cannot be zero or below'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        Certification.objects.move(obj, new_order)
+
+        return Response({'success': True, 'order': new_order})
+
+
 
 class LanguageListCreateView(generics.ListCreateAPIView):
     serializer_class = LanguageSerializer
@@ -171,3 +310,30 @@ class LanguageDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return get_object_or_404(Language, pk=self.kwargs.get('language_id'), profile__id=self.kwargs.get('profile_id'))
+
+class LanguageMoveView(generics.GenericAPIView):
+    serializer_class = LanguageOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_order = serializer.validated_data['order']
+        obj = get_object_or_404(Language,pk=serializer.validated_data['item_id'])
+        # Make sure we received an order
+        if new_order is None:
+            return Response(
+                data={'error': 'No order given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Make sure our new order is not below one
+        if int(new_order) < 1:
+            return Response(
+                data={'error': 'Order cannot be zero or below'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        Language.objects.move(obj, new_order)
+
+        return Response({'success': True, 'order': new_order})

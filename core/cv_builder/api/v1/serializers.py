@@ -155,3 +155,55 @@ class WorkOrderSerializer(serializers.Serializer):
         if attrs.get('order') is None:
             raise serializers.ValidationError({'details':'please provide an ordering'})
         return super().validate(attrs)
+    
+class EducationOrderSerializer(serializers.Serializer):
+    order = serializers.IntegerField(required=True)
+    item_id = serializers.IntegerField(required=True)
+    def validate(self, attrs):
+        if attrs.get('order') is None:
+            raise serializers.ValidationError({'details':'please provide an ordering'})
+        return super().validate(attrs)
+    
+
+class SkillOrderSerializer(serializers.Serializer):
+    order = serializers.IntegerField(required=True)
+    item_id = serializers.IntegerField(required=True)
+    def validate(self, attrs):
+        if attrs.get('order') is None:
+            raise serializers.ValidationError({'details':'please provide an ordering'})
+        return super().validate(attrs)
+    
+class LinkOrderSerializer(serializers.Serializer):
+    order = serializers.IntegerField(required=True)
+    item_id = serializers.IntegerField(required=True)
+    def validate(self, attrs):
+        if attrs.get('order') is None:
+            raise serializers.ValidationError({'details':'please provide an ordering'})
+        return super().validate(attrs)
+    
+
+class AchievementOrderSerializer(serializers.Serializer):
+    order = serializers.IntegerField(required=True)
+    item_id = serializers.IntegerField(required=True)
+    def validate(self, attrs):
+        if attrs.get('order') is None:
+            raise serializers.ValidationError({'details':'please provide an ordering'})
+        return super().validate(attrs)
+    
+
+class CertificationOrderSerializer(serializers.Serializer):
+    order = serializers.IntegerField(required=True)
+    item_id = serializers.IntegerField(required=True)
+    def validate(self, attrs):
+        if attrs.get('order') is None:
+            raise serializers.ValidationError({'details':'please provide an ordering'})
+        return super().validate(attrs)
+    
+    
+class LanguageOrderSerializer(serializers.Serializer):
+    order = serializers.IntegerField(required=True)
+    item_id = serializers.IntegerField(required=True)
+    def validate(self, attrs):
+        if attrs.get('order') is None:
+            raise serializers.ValidationError({'details':'please provide an ordering'})
+        return super().validate(attrs)

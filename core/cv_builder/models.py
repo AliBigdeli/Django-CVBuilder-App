@@ -122,15 +122,15 @@ class EducationExperience(models.Model):
     start_month = models.CharField(max_length=5,null=True)
     start_year = models.CharField(max_length=5,null=True)
     still_educate = models.BooleanField(default=False)
-    end_month = models.CharField(max_length=5)
-    end_year = models.CharField(max_length=5)
+    end_month = models.CharField(max_length=5,null=True,blank=True)
+    end_year = models.CharField(max_length=5,null=True,blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 
     objects = OrderManager()
     
     def __str__(self):
-        return f"{self.profile} - {self.title}"
+        return f"{self.profile} - {self.university_name}"
 
 
 class Skill(models.Model):
