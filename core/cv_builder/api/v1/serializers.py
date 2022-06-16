@@ -144,6 +144,13 @@ class LanguageSerializer(serializers.ModelSerializer):
             attrs["profile"] = get_object_or_404(
                 UserProfile, pk=url_parameter, user=request.user)
         return super().validate(attrs)
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep["level"] =  {
+            "id":instance.level,
+            "name": instance.get_level_display()
+        }
+        return rep
 
 
 
@@ -201,6 +208,14 @@ class CertificationOrderSerializer(serializers.Serializer):
     
     
 class LanguageOrderSerializer(serializers.Serializer):
+    order = serializers.IntegerField(required=True)
+    item_id = serializers.IntegerField(required=True)
+    def validate(self, attrs):
+        if attrs.get('order') is None:
+            raise serializers.ValidationError({'details':'please provide an ordering'})
+        return super().validate(attrs)
+    
+class AffiliateOrderSerializer(serializers.Serializer):
     order = serializers.IntegerField(required=True)
     item_id = serializers.IntegerField(required=True)
     def validate(self, attrs):

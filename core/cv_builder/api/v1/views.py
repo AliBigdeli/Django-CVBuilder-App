@@ -337,3 +337,47 @@ class LanguageMoveView(generics.GenericAPIView):
         Language.objects.move(obj, new_order)
 
         return Response({'success': True, 'order': new_order})
+    
+
+
+class AffiliateListCreateView(generics.ListCreateAPIView):
+    serializer_class = AffiliateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Affiliate.objects.filter(profile__id=self.kwargs.get('profile_id')).order_by("order")
+
+
+class AffiliateDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = AffiliateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return get_object_or_404(Affiliate, pk=self.kwargs.get('affiliate_id'), profile__id=self.kwargs.get('profile_id'))
+
+class AffiliateMoveView(generics.GenericAPIView):
+    serializer_class = AffiliateOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_order = serializer.validated_data['order']
+        obj = get_object_or_404(Affiliate,pk=serializer.validated_data['item_id'])
+        # Make sure we received an order
+        if new_order is None:
+            return Response(
+                data={'error': 'No order given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Make sure our new order is not below one
+        if int(new_order) < 1:
+            return Response(
+                data={'error': 'Order cannot be zero or below'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        Affiliate.objects.move(obj, new_order)
+
+        return Response({'success': True, 'order': new_order})

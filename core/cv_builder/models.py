@@ -212,13 +212,13 @@ class Additional(models.Model):
 
 
 class Language(models.Model):
-    profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     order = models.PositiveIntegerField(default=1,null=True,blank=True)
     LANGUAGE_LEVEL = ((1, "Native"), (2, "Beginner"), (3, "Elementary"),
                       (4, "Intermediate"), (5, "Upper intermediate"),
                       (6, "Advanced"), (7, "Proficient"))
     name = models.CharField(max_length=255)
-    level = models.CharField(max_length=255, choices=LANGUAGE_LEVEL, default=1)
+    level = models.IntegerField( choices=LANGUAGE_LEVEL, default=1)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 

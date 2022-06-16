@@ -62,8 +62,8 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 4-->
-                <a class="nav-item nav-link  disabled" id="wizard4-tab" href="#wizard4" data-bs-toggle="tab"
-                    role="tab" aria-controls="wizard4" aria-selected="true">
+                <a class="nav-item nav-link  disabled" id="wizard4-tab" href="#wizard4" data-bs-toggle="tab" role="tab"
+                    aria-controls="wizard4" aria-selected="true">
                     <div class="wizard-step-icon">4</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Skills</div>
@@ -71,8 +71,8 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 5-->
-                <a class="nav-item nav-link active disabled" id="wizard5-tab" href="#wizard5" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard4" aria-selected="true">
+                <a class="nav-item nav-link active disabled" id="wizard5-tab" href="#wizard5" data-bs-toggle="tab"
+                    role="tab" aria-controls="wizard4" aria-selected="true">
                     <div class="wizard-step-icon">5</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Additional</div>
@@ -123,7 +123,7 @@
                                         <th style="width: 4.08372%;">Order</th>
                                         <th style="width: 4.08372%;">Id</th>
                                         <th style="width: 20.2795%;">Name</th>
-
+                                        <th style="width: 20.2795%;">Level</th>
                                         <th style="width: 8.49919%;">Actions</th>
                                         <th style="width: 8.49919%;">Movement</th>
                                     </tr>
@@ -135,7 +135,8 @@
                             </table>
                         </div>
                         <div class="dataTable-bottom pt-5">
-                            <a class="btn btn-secondary" type="button" href="{% url 'dashboard:more-mgmt' pk=object.id %}">Back</a>
+                            <a class="btn btn-secondary" type="button"
+                                href="{% url 'dashboard:more-mgmt' pk=object.id %}">Back</a>
 
                         </div>
                     </div>
@@ -156,12 +157,23 @@
             </div>
             <form id="item-create-form">
                 <div class="modal-body">
-
-                    <label for="name-field">Name</label>
-                    <input class="form-control pe-0" id="name-field" name="name" type="text"
-                        placeholder="eg. SkillName">
-
-
+                    <div class="mb-3">
+                        <label for="language-field">Language</label>
+                        <input class="form-control pe-0" id="language-field" name="name" type="text"
+                            placeholder="eg. Language Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="level-field">Level</label>
+                        <select name="level" class="form-control required" id="level-field">
+                            <option value="1" selected="">Native</option>
+                            <option value="2">Beginner</option>
+                            <option value="3">Elementary</option>
+                            <option value="4">Intermediate</option>
+                            <option value="5">Upper Intermediate</option>
+                            <option value="6">Advanced</option>
+                            <option value="7">Proficient</option>
+                        </select>
+                    </div>
 
                 </div>
 
@@ -185,8 +197,23 @@
             </div>
             <form id="item-edit-form">
                 <div class="modal-body">
-                    <label for="name-field-edit"> Name</label>
-                    <input class="form-control pe-0" id="name-field-edit" name="name" type="text">
+                    <div class="mb-3">
+                        <label for="language-field-edit">Language</label>
+                        <input class="form-control pe-0" id="language-field-edit" name="name" type="text"
+                            placeholder="eg. Language Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="level-field-edit">Level</label>
+                        <select name="level" class="form-control required" id="level-field-edit">
+                            <option value="1" selected="">Native</option>
+                            <option value="2">Beginner</option>
+                            <option value="3">Elementary</option>
+                            <option value="4">Intermediate</option>
+                            <option value="5">Upper Intermediate</option>
+                            <option value="6">Advanced</option>
+                            <option value="7">Proficient</option>
+                        </select>
+                    </div>
                 </div>
 
 
@@ -223,6 +250,7 @@
                             <td>${item.order}</td>
                             <td>${item.id}</td>
                             <td>${item.name}</td>
+                            <td>${item.level.name}</td>
                             <td>
                                 <button class="btn btn-primary btn-xs" type="button" onclick="openEditModal(${item.id})" >Edit</button>                                
                                 <button class="btn btn-danger btn-xs" type="button" onclick="removeItem(${item.id})">Delete</button>
@@ -310,7 +338,7 @@
             }).then(function () {
                 // console.log(result_data)
                 edit_item = result_data.id
-                $('#name-field-edit').val(result_data.name)
+                $('#language-field-edit').val(result_data.name)
 
 
             })
@@ -385,4 +413,3 @@
 
 </script>
 {% endblock %}
-
