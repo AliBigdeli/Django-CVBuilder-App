@@ -35,8 +35,8 @@
             <!-- Wizard navigation-->
             <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
                 <!-- Wizard navigation item 1-->
-                <a class="nav-item nav-link  disabled" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab"
-                    role="tab" aria-controls="wizard1" aria-selected="true">
+                <a class="nav-item nav-link  disabled" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab" role="tab"
+                    aria-controls="wizard1" aria-selected="true">
                     <div class="wizard-step-icon">1</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Heading</div>
@@ -71,8 +71,8 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 5-->
-                <a class="nav-item nav-link active disabled" id="wizard5-tab" href="#wizard5" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard4" aria-selected="true">
+                <a class="nav-item nav-link active disabled" id="wizard5-tab" href="#wizard5" data-bs-toggle="tab"
+                    role="tab" aria-controls="wizard4" aria-selected="true">
                     <div class="wizard-step-icon">5</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Additional</div>
@@ -94,18 +94,115 @@
         <div class="card-body">
             <div class="tab-content" id="cardTabContent">
                 <!-- Wizard tab pane item 1-->
-                <div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel"
+                <div class="tab-pane py-xl-5 fade show active" id="wizard1" role="tabpanel"
                     aria-labelledby="wizard1-tab">
                     <div class="row justify-content-center">
                         <div class="col-xxl-6 col-xl-8">
-                            <h3 class="text-primary">Step 2</h3>
-                            <h5 class="card-title mb-4">Enter your User Work Experiences information</h5>
 
+                            <h5 class="card-title mb-4">If you want to Add more data just use the navigators below</h5>
+                        </div>
+                    </div>
 
-                            <a class="btn btn-secondary" type="button" href="{% url 'dashboard:skill-mgmt' pk=object.id %}">Back</a>
-                            <a class="btn btn-primary" type="button" href="{% url 'dashboard:finalize-mgmt' pk=object.id %}">Next</a>
-                            
-
+                    <div class="container-xl px-4">
+                        <!-- Knowledge base category-->
+                        <hr class="mt-2 mb-4">
+                        <!-- Knowledge base item-->
+                        <a class="card card-icon lift lift-sm mb-4"
+                            href="{% url 'dashboard:achievement-mgmt' pk=object.id%}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="h5 card-title mb-0">Accomplishments</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-chevron-right flex-shrink-0 ms-4">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Knowledge base item-->
+                        <a class="card card-icon lift lift-sm mb-4"
+                            href="{% url 'dashboard:affiliate-mgmt' pk=object.id%}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="h5 card-title mb-0">Affiliations</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-chevron-right flex-shrink-0 ms-4">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Knowledge base item-->
+                        <a class="card card-icon lift lift-sm mb-4" href="{% url 'dashboard:link-mgmt' pk=object.id%}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="h5 card-title mb-0">Websites, Portfolios, Profiles</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-chevron-right flex-shrink-0 ms-4">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Knowledge base item-->
+                        <a class="card card-icon lift lift-sm mb-4"
+                            href="{% url 'dashboard:certification-mgmt' pk=object.id%}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="h5 card-title mb-0">Certifications</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-chevron-right flex-shrink-0 ms-4">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Knowledge base item-->
+                        <a class="card card-icon lift lift-sm mb-4"
+                            href="{% url 'dashboard:language-mgmt' pk=object.id%}">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="h5 card-title mb-0">Languages</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-chevron-right flex-shrink-0 ms-4">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                        <!-- Knowledge base item-->
+                        <!-- <a class="card card-icon lift lift-sm mb-4"
+                            href="#">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="h5 card-title mb-0">Additional Information</div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        class="feather feather-chevron-right flex-shrink-0 ms-4">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a> -->
+                        <!-- knowledge base rating-->
+                        <div class="text-center mt-5">
+                            <div class="mb-3">
+                                <a class="btn btn-secondary" type="button"
+                                    href="{% url 'dashboard:skill-mgmt' pk=object.id %}">Back</a>
+                                <a class="btn btn-primary" type="button"
+                                    href="{% url 'dashboard:finalize-mgmt' pk=object.id %}">Next</a>
+                            </div>
                         </div>
                     </div>
                 </div>

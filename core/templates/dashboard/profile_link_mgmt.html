@@ -35,8 +35,8 @@
             <!-- Wizard navigation-->
             <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
                 <!-- Wizard navigation item 1-->
-                <a class="nav-item nav-link  disabled" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab"
-                    role="tab" aria-controls="wizard1" aria-selected="true">
+                <a class="nav-item nav-link  disabled" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab" role="tab"
+                    aria-controls="wizard1" aria-selected="true">
                     <div class="wizard-step-icon">1</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Heading</div>
@@ -62,8 +62,8 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 4-->
-                <a class="nav-item nav-link active disabled" id="wizard4-tab" href="#wizard4" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard4" aria-selected="true">
+                <a class="nav-item nav-link  disabled" id="wizard4-tab" href="#wizard4" data-bs-toggle="tab"
+                    role="tab" aria-controls="wizard4" aria-selected="true">
                     <div class="wizard-step-icon">4</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Skills</div>
@@ -71,7 +71,7 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 5-->
-                <a class="nav-item nav-link disabled" id="wizard5-tab" href="#wizard5" data-bs-toggle="tab" role="tab"
+                <a class="nav-item nav-link active disabled" id="wizard5-tab" href="#wizard5" data-bs-toggle="tab" role="tab"
                     aria-controls="wizard4" aria-selected="true">
                     <div class="wizard-step-icon">5</div>
                     <div class="wizard-step-text">
@@ -94,25 +94,295 @@
         <div class="card-body">
             <div class="tab-content" id="cardTabContent">
                 <!-- Wizard tab pane item 1-->
-                <div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel"
+                <div class="tab-pane py-xl-5   fade show active" id="wizard1" role="tabpanel"
                     aria-labelledby="wizard1-tab">
+
+
                     <div class="row justify-content-center">
                         <div class="col-xxl-6 col-xl-8">
-                            <h3 class="text-primary">Link Management</h3>
-                            <h5 class="card-title mb-4">Enter your User Links information</h5>
 
-
-                            <a class="btn btn-secondary" type="button" href="{% url 'dashboard:more-mgmt' pk=object.id %}">Back</a>
-                            
+                            <h5 class="card-title mb-4">Enter your User Links information In here</h5>
                         </div>
                     </div>
+
+                    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                        <div class="dataTable-top">
+
+
+                            <div class="dataTable-search">
+                                <div class="input-group input-group-joined">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#createModal">Add Item</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dataTable-container">
+                            <table class="dataTable-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 4.08372%;">Order</th>
+                                        <th style="width: 4.08372%;">Id</th>
+                                        <th style="width: 20.2795%;">Name</th>
+
+                                        <th style="width: 8.49919%;">Actions</th>
+                                        <th style="width: 8.49919%;">Movement</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="table-item-wrapper">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="dataTable-bottom pt-5">
+                            <a class="btn btn-secondary" type="button" href="{% url 'dashboard:more-mgmt' pk=object.id %}">Back</a>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Item Create</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="item-create-form">
+                <div class="modal-body">
+
+                    <label for="name-field">Name</label>
+                    <input class="form-control pe-0" id="name-field" name="name" type="text"
+                        placeholder="eg. SkillName">
+
+
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Item Edit</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="item-edit-form">
+                <div class="modal-body">
+                    <label for="name-field-edit"> Name</label>
+                    <input class="form-control pe-0" id="name-field-edit" name="name" type="text">
+                </div>
+
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
 
 {% block extra_js %}
+<script>
+    var general_id = '{{object.id}}'
+    var host_url = location.protocol + '//' + location.host
+    var path_url = `/cv-builder/api/v1/profile/${general_id}/link/`
+    var main_url = new URL(host_url + path_url)
+    var edit_item;
+    function fetchData(url) {
+        let wrapper = $('#table-item-wrapper')
 
+        $.get(url,  // url
+            function (data, textStatus, jqXHR) {
+
+                results_data = data
+                wrapper.empty()
+                results_data.forEach(function (item, i) {
+                    // for (post of data.results) {
+                    wrapper.append(`<tr id='table-item-${item.id}'>
+                            <td>${item.order}</td>
+                            <td>${item.id}</td>
+                            <td>${item.name}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" type="button" onclick="openEditModal(${item.id})" >Edit</button>                                
+                                <button class="btn btn-danger btn-xs" type="button" onclick="removeItem(${item.id})">Delete</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" type="button" onclick="changeOrder(${item.id},${item.order - 1})" >Up</button>
+                                <button class="btn btn-secondary btn-xs" type="button" onclick="changeOrder(${item.id},${item.order + 1})">Down</button>                                
+                            </td>
+                        </tr>`)
+                }
+                )
+            })
+
+    }
+
+    $("#item-create-form").submit(function (e) {
+        e.preventDefault()
+        // console.log(this.job_title.value)
+        // console.log('sent')
+
+        formData = JSON.stringify($(this).serializeArray().reduce(function (obj, item) {
+            obj[item.name] = item.value;
+            return obj;
+        }, {}))
+
+        console.log(formData)
+        $.ajax({
+            contentType: "application/json",
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            type: 'POST',
+            // processData: false,
+            // contentType: false,
+            data: formData,
+            url: path_url,
+            success: function (data) {
+                fetchData(main_url)
+                $("#item-create-form").trigger("reset");
+                $("#createModal").modal('hide');
+            },
+            failure: function (response) {
+                alert(response)
+            }
+        });
+    });
+
+    $("#item-edit-form").submit(function (e) {
+        e.preventDefault()
+
+        formData = JSON.stringify($(this).serializeArray().reduce(function (obj, item) {
+            obj[item.name] = item.value;
+            return obj;
+        }, {}))
+
+        $.ajax({
+            contentType: "application/json",
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            type: 'PUT',
+            // processData: false,
+            // contentType: false,
+            data: formData,
+            url: `${path_url}${edit_item}/`,
+            success: function (data) {
+                fetchData(main_url)
+                $("#editModal").modal('hide');
+            },
+            failure: function (response) {
+                alert(response)
+            }
+        });
+    });
+
+    function openEditModal(id) {
+        $("#editModal").modal('show');
+
+        let result_data
+        $.get(`${path_url}${id}/`, { async: false },
+            function (data, textStatus, jqXHR) {
+                result_data = data
+                // console.log(result_data.text)
+
+            }).then(function () {
+                // console.log(result_data)
+                edit_item = result_data.id
+                $('#name-field-edit').val(result_data.name)
+
+
+            })
+    }
+
+    function removeItem(id) {
+        if (confirm(`Are you sure you want to remove this ${id} id?`)) {
+            $.ajax({
+                // contentType: "multipart/form-data",
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                type: 'DELETE',
+                processData: false,
+                contentType: false,
+                url: `${path_url}${id}/`,
+                success: function (data) {
+                    fetchData(main_url)
+                },
+                failure: function (response) {
+                    alert(response)
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+
+            });
+        } else {
+
+        }
+    }
+
+
+    function changeOrder(id, order) {
+        if ((order < 1) != true) {
+            formData = JSON.stringify(
+                {
+                    "item_id": id,
+                    "order": order
+                }
+            )
+            $.ajax({
+                contentType: "application/json",
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                type: 'POST',
+                url: `${path_url}move/`,
+                data: formData,
+                success: function (data) {
+                    fetchData(main_url)
+                },
+                failure: function (response) {
+                    // alert(response)
+                },
+                error: function (xhr, status, error) {
+                    // alert(error);
+                }
+
+            });
+        }
+
+    }
+
+    window.addEventListener('DOMContentLoaded', event => {
+        url = main_url
+        fetchData(url)
+        // fetchJobTitles()
+    });
+
+
+
+</script>
 {% endblock %}
+
