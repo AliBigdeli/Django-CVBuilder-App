@@ -96,6 +96,7 @@ class LinkDetailView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         return get_object_or_404(Link, pk=self.kwargs.get('link_id'), profile__id=self.kwargs.get('profile_id'))
 
+
 class AchievementListCreateView(generics.ListCreateAPIView):
     serializer_class = AchievementSerializer
     permission_classes = [IsAuthenticated]
@@ -110,8 +111,8 @@ class AchievementDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return get_object_or_404(Achievement, pk=self.kwargs.get('achievement_id'), profile__id=self.kwargs.get('profile_id'))
-    
-    
+
+
 class CertificationListCreateView(generics.ListCreateAPIView):
     serializer_class = CertificationSerializer
     permission_classes = [IsAuthenticated]
@@ -126,6 +127,7 @@ class CertificationDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return get_object_or_404(Certification, pk=self.kwargs.get('certification_id'), profile__id=self.kwargs.get('profile_id'))
+
 
 class LanguageListCreateView(generics.ListCreateAPIView):
     serializer_class = LanguageSerializer

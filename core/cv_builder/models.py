@@ -18,8 +18,8 @@ class UserProfile(models.Model):
         upload_to="images/avatar/", blank=True, null=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    phone_number = models.CharField(max_length=255)
-    about = models.TextField()
+    phone_number = models.CharField(max_length=255,blank=True, null=True)
+    about = models.TextField(blank=True, null=True)
     email = models.EmailField(max_length=255)
     country = models.CharField(max_length=255)
     years_level = models.IntegerField(choices=EXPERIENCE_LEVEL,default=1)
@@ -34,7 +34,8 @@ class UserProfile(models.Model):
             return self.avatar.url
         except:
             return ""
-
+    class Meta:
+        ordering = ('-created_date',)
 
 class OrderManager(models.Manager):
     """ Manager to encapsulate bits of business logic """

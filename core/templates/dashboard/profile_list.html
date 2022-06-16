@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-12 col-xl-auto mt-4">
                     <div class="input-group input-group-joined border-0" style="width: 16.5rem">
-                        <a class="btn btn-white" href="#">Add Profile</a>
+                        <a class="btn btn-white" href="{% url 'dashboard:profile-create' %}">Add Profile</a>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
                             <td>${item.created_date}</td>
                             <td>${item.updated_date}</td>
                             <td>
-                                <a class="btn btn-primary btn-xs" href="#" >Edit</a>
+                                <a class="btn btn-primary btn-xs" href="/dashboard/profile/${item.id}/edit/" >Edit</a>
                                 <button class="btn btn-danger btn-xs" type="button" onclick="removeItem(${item.id})">Delete</button>
                             </td>
                         </tr>`)
