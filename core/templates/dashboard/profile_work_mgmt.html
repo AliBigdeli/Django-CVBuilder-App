@@ -23,6 +23,7 @@
                     <div class="page-header-subtitle">Create the cv with step by step guides, which leads to better
                         quality</div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -35,8 +36,8 @@
             <!-- Wizard navigation-->
             <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
                 <!-- Wizard navigation item 1-->
-                <a class="nav-item nav-link  disabled" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab"
-                    role="tab" aria-controls="wizard1" aria-selected="true">
+                <a class="nav-item nav-link  disabled" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab" role="tab"
+                    aria-controls="wizard1" aria-selected="true">
                     <div class="wizard-step-icon">1</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Heading</div>
@@ -44,8 +45,8 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 2-->
-                <a class="nav-item nav-link active disabled" id="wizard2-tab" href="#wizard2" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard2" aria-selected="true">
+                <a class="nav-item nav-link active disabled" id="wizard2-tab" href="#wizard2" data-bs-toggle="tab"
+                    role="tab" aria-controls="wizard2" aria-selected="true">
                     <div class="wizard-step-icon">2</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Work History</div>
@@ -94,27 +95,410 @@
         <div class="card-body">
             <div class="tab-content" id="cardTabContent">
                 <!-- Wizard tab pane item 1-->
-                <div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel"
+                <div class="tab-pane py-xl-5   fade show active" id="wizard1" role="tabpanel"
                     aria-labelledby="wizard1-tab">
+
+
                     <div class="row justify-content-center">
                         <div class="col-xxl-6 col-xl-8">
-                            <h3 class="text-primary">Step 2</h3>
-                            <h5 class="card-title mb-4">Enter your User Work Experiences information</h5>
+
+                            <h5 class="card-title mb-4">Enter your User Work Experiences information In here</h5>
+                        </div>
+                    </div>
+
+                    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
+                        <div class="dataTable-top">
 
 
-                            <a class="btn btn-secondary" type="button" href="{% url 'dashboard:profile-edit' pk=object.id %}">Back</a>
-                            <a class="btn btn-primary" type="button" href="{% url 'dashboard:education-mgmt' pk=object.id %}">Next</a>
-                            
+                            <div class="dataTable-search">
+                                <div class="input-group input-group-joined">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#createModal">Add Item</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="dataTable-container">
+                            <table class="dataTable-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 4.08372%;">Order</th>
+                                        <th style="width: 4.08372%;">Id</th>
+                                        <th style="width: 20.2795%;">Title</th>
+                                        <th style="width: 6.08845%;">Employer</th>
+                                        <th style="width: 10.3822%;">City</th>
+                                        <th style="width: 8.68718%;">Country</th>
+                                        <th style="width: 8.49919%;">Actions</th>
+                                        <th style="width: 8.49919%;">Movement</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="table-item-wrapper">
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="dataTable-bottom pt-5">
+                            <a class="btn btn-secondary" type="button"
+                                href="{% url 'dashboard:profile-edit' pk=object.id %}">Back</a>
+                            <a class="btn btn-primary" type="button"
+                                href="{% url 'dashboard:education-mgmt' pk=object.id %}">Next</a>
 
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Item Create</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="item-create-form">
+                <div class="modal-body">
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6"><label for="title-field">Title</label>
+                            <input class="form-control pe-0" id="title-field" name="title" type="text"
+                                placeholder="eg. Software Developer">
+                        </div>
+                        <div class="col-md-6"><label for="employer-field">Employer</label>
+                            <input class="form-control pe-0" id="employer-field" name="employer" type="text"
+                                placeholder="eg. WomTechnologies">
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6"><label for="city-field">City</label>
+                            <input class="form-control pe-0" id="city-field" name="city" type="text"
+                                placeholder="eg. Dubai">
+                        </div>
+                        <div class="col-md-6"><label for="country-field">Country</label>
+                            <input class="form-control pe-0" id="country-field" name="country" type="text"
+                                placeholder="eg. UAE">
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6"><label for="start-year-field">Start year</label>
+                            <input class="form-control pe-0" id="start-year-field" name="start_year" type="text"
+                                placeholder="eg. 2017">
+
+                        </div>
+
+
+                        <div class="col-md-6"><label for="end-year-field">End year</label>
+                            <input class="form-control pe-0" id="end-year-field" name="end_year" type="text"
+                                placeholder="eg. 2022">
+                        </div>
+                        <div class="col-md-6"><label for="start-month-field">Start Month</label>
+                            <input class="form-control pe-0" id="start-month-field" name="start_month" type="text"
+                                placeholder="eg. jun, june , 6">
+                            <input class="form-check-input" id="still-work-field" name="still_work" type="checkbox"
+                                value=false>
+                            <label class="form-check-label" for="still-work-field">Still working</label>
+                        </div>
+                        <div class="col-md-6"><label for="end-month-field">End month</label>
+                            <input class="form-control pe-0" id="end-month-field" name="end_month" type="text"
+                                placeholder="eg. jun, june , 6">
+                        </div>
+                    </div>
+                    <div class="mb-3"><label for="description-field">Description</label>
+                        <textarea class="form-control pe-0" id="description-field" name="description"
+                            placeholder="eg. brief description about your job"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Item Edit</h5>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="item-edit-form">
+                <div class="modal-body">
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6"><label for="title-field-edit">Title</label>
+                            <input class="form-control pe-0" id="title-field-edit" name="title" type="text">
+                        </div>
+                        <div class="col-md-6"><label for="employer-field-edit">Employer</label>
+                            <input class="form-control pe-0" id="employer-field-edit" name="employer" type="text">
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6"><label for="city-field-edit">City</label>
+                            <input class="form-control pe-0" id="city-field-edit" name="city" type="text">
+                        </div>
+                        <div class="col-md-6"><label for="country-field-edit">Country</label>
+                            <input class="form-control pe-0" id="country-field-edit" name="country" type="text">
+                        </div>
+                    </div>
+                    <div class="row gx-3 mb-3">
+                        <div class="col-md-6"><label for="start-year-field-edit">Start year</label>
+                            <input class="form-control pe-0" id="start-year-field-edit" name="start_year" type="text">
+
+                        </div>
+
+
+                        <div class="col-md-6" id="end-year-div-edit"><label for="end-year-field-edit">End year</label>
+                            <input class="form-control pe-0" id="end-year-field-edit" name="end_year" type="text">
+                        </div>
+                        <div class="col-md-6"><label for="start-month-field-edit">Start Month</label>
+                            <input class="form-control pe-0" id="start-month-field-edit" name="start_month" type="text">
+                            <div class="pt-3">
+                                <input class="form-check-input " id="still-work-edit-field" name="still_work"
+                                    type="checkbox" value=false>
+                                <label class="form-check-label" for="still-work-edit-field">Still working</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6" id="end-month-div-edit"><label for="end-month-field-edit">End
+                                month</label>
+                            <input class="form-control pe-0" id="end-month-field-edit" name="end_month" type="text">
+                        </div>
+                    </div>
+                    <div class="mb-3"><label for="description-field-edit">Description</label>
+                        <textarea class="form-control pe-0" id="description-field-edit" name="description"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary" type="submit">update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
 
 {% block extra_js %}
+<script>
+    var general_id = '{{object.id}}'
+    var host_url = location.protocol + '//' + location.host
+    var path_url = `/cv-builder/api/v1/profile/${general_id}/work/`
+    var main_url = new URL(host_url + path_url)
+    var edit_item;
+    function fetchData(url) {
+        let wrapper = $('#table-item-wrapper')
 
+        $.get(url,  // url
+            function (data, textStatus, jqXHR) {
+
+                results_data = data
+                wrapper.empty()
+                results_data.forEach(function (item, i) {
+                    // for (post of data.results) {
+                    wrapper.append(`<tr id='table-item-${item.id}'>
+                            <td>${item.order}</td>
+                            <td>${item.id}</td>
+                            <td>${item.title}</td>
+                            <td>${item.employer}</td>
+                            <td>${item.city}</td>
+                            <td>${item.country}</td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" type="button" onclick="openEditModal(${item.id})" >Edit</button>                                
+                                <button class="btn btn-danger btn-xs" type="button" onclick="removeItem(${item.id})">Delete</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary btn-xs" type="button" onclick="changeOrder(${item.id},${item.order - 1})" >Up</button>
+                                <button class="btn btn-secondary btn-xs" type="button" onclick="changeOrder(${item.id},${item.order + 1})">Down</button>                                
+                            </td>
+                        </tr>`)
+                }
+                )
+            })
+
+    }
+
+    $("#item-create-form").submit(function (e) {
+        e.preventDefault()
+        // console.log(this.job_title.value)
+        // console.log('sent')
+
+        formData = JSON.stringify($(this).serializeArray().reduce(function (obj, item) {
+            obj[item.name] = item.value;
+            return obj;
+        }, {}))
+
+        console.log(formData)
+        $.ajax({
+            contentType: "application/json",
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            type: 'POST',
+            // processData: false,
+            // contentType: false,
+            data: formData,
+            url: path_url,
+            success: function (data) {
+                fetchData(main_url)
+                $("#item-create-form").trigger("reset");
+                $("#createModal").modal('hide');
+            },
+            failure: function (response) {
+                alert(response)
+            }
+        });
+    });
+
+    $("#item-edit-form").submit(function (e) {
+        e.preventDefault()
+
+        formData = JSON.stringify($(this).serializeArray().reduce(function (obj, item) {
+            obj[item.name] = item.value;
+            return obj;
+        }, {}))
+
+        $.ajax({
+            contentType: "application/json",
+            headers: {
+                'X-CSRFToken': csrftoken,
+            },
+            type: 'PUT',
+            // processData: false,
+            // contentType: false,
+            data: formData,
+            url: `${path_url}${edit_item}/`,
+            success: function (data) {
+                fetchData(main_url)
+                $("#editModal").modal('hide');
+            },
+            failure: function (response) {
+                alert(response)
+            }
+        });
+    });
+
+    function openEditModal(id) {
+        $("#editModal").modal('show');
+
+        let result_data
+        $.get(`${path_url}${id}/`, { async: false },
+            function (data, textStatus, jqXHR) {
+                result_data = data
+                // console.log(result_data.text)
+
+            }).then(function () {
+                // console.log(result_data)
+                edit_item = result_data.id
+                $('#title-field-edit').val(result_data.title)
+                $('#employer-field-edit').val(result_data.employer)
+                $('#city-field-edit').val(result_data.city)
+                $('#country-field-edit').val(result_data.country)
+                $('#start-year-field-edit').val(result_data.start_year)
+                $('#start-month-field-edit').val(result_data.start_month)
+                $('#end-year-field-edit').val(result_data.end_year)
+                $('#end-month-field-edit').val(result_data.end_month)
+                $('#description-field-edit').text(result_data.description)
+
+            })
+    }
+
+    function removeItem(id) {
+        if (confirm(`Are you sure you want to remove this ${id} id?`)) {
+            $.ajax({
+                // contentType: "multipart/form-data",
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                type: 'DELETE',
+                processData: false,
+                contentType: false,
+                url: `${path_url}${id}/`,
+                success: function (data) {
+                    fetchData(main_url)
+                },
+                failure: function (response) {
+                    alert(response)
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+
+            });
+        } else {
+
+        }
+    }
+
+
+    function changeOrder(id, order) {
+        if ((order < 1) != true) {
+            formData = JSON.stringify(
+                {
+                    "item_id": id,
+                    "order": order
+                }
+            )
+            $.ajax({
+                contentType: "application/json",
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                },
+                type: 'POST',
+                url: `${path_url}move/`,
+                data: formData,
+                success: function (data) {
+                    fetchData(main_url)
+                },
+                failure: function (response) {
+                    // alert(response)
+                },
+                error: function (xhr, status, error) {
+                    // alert(error);
+                }
+
+            });
+        }
+
+    }
+
+    window.addEventListener('DOMContentLoaded', event => {
+        url = main_url
+        fetchData(url)
+        // fetchJobTitles()
+    });
+
+    $("#still-work-edit-field").change(function (e) {
+        if (e.currentTarget.checked) {
+            // console.log($("#item-edit-form :input[name='end-year-field-edit']"))
+            $("#end-year-div-edit").hide(200);
+            $("#end-month-div-edit").hide(200);
+
+        } else {
+
+            $("#end-year-div-edit").show(200);
+            $("#end-month-div-edit").show(200);
+        }
+    })
+    $("#still-work-field").change(function (e) {
+        if (e.currentTarget.checked) {
+            alert('checked');
+        } else {
+            alert('not checked');
+        }
+    })
+
+
+</script>
 {% endblock %}

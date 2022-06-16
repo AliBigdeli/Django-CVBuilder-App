@@ -26,6 +26,10 @@ class DashboardProfileCreateView(LoginRequiredMixin,CreateView):
     template_name = 'dashboard/profile_create.html'
     form_class = UserProfileForm
     success_url = reverse_lazy('dashboard:profile-list')
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form) 
 
 class DashboardProfileEditView(LoginRequiredMixin,UpdateView):
     template_name = 'dashboard/profile_edit.html'

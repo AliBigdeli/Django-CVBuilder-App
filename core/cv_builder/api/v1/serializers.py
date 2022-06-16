@@ -144,4 +144,14 @@ class LanguageSerializer(serializers.ModelSerializer):
             attrs["profile"] = get_object_or_404(
                 UserProfile, pk=url_parameter, user=request.user)
         return super().validate(attrs)
-    
+
+
+
+
+class WorkOrderSerializer(serializers.Serializer):
+    order = serializers.IntegerField(required=True)
+    item_id = serializers.IntegerField(required=True)
+    def validate(self, attrs):
+        if attrs.get('order') is None:
+            raise serializers.ValidationError({'details':'please provide an ordering'})
+        return super().validate(attrs)

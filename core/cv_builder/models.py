@@ -91,7 +91,7 @@ class OrderManager(models.Manager):
 
 class WorkExperience(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    order = models.PositiveIntegerField(default=1,null=True,blank=True)
     title = models.CharField(max_length=255)
     employer = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
@@ -113,7 +113,7 @@ class WorkExperience(models.Model):
 
 class EducationExperience(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    order = models.PositiveIntegerField(default=1,null=True,blank=True)
     university_name = models.CharField(max_length=255)
     university_location = models.CharField(max_length=255)
     degree = models.CharField(max_length=255)
@@ -135,7 +135,7 @@ class EducationExperience(models.Model):
 
 class Skill(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    order = models.PositiveIntegerField(default=1,null=True,blank=True)
     name = models.CharField(max_length=255)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -148,7 +148,7 @@ class Skill(models.Model):
 
 class Link(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    order = models.PositiveIntegerField(default=1,null=True,blank=True)
     url = models.URLField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
@@ -161,7 +161,7 @@ class Link(models.Model):
 
 class Achievement(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    order = models.PositiveIntegerField(default=1,null=True,blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
@@ -175,7 +175,7 @@ class Achievement(models.Model):
 
 class Affiliate(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    order = models.PositiveIntegerField(default=1,null=True,blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
@@ -189,7 +189,7 @@ class Affiliate(models.Model):
 
 class Certification(models.Model):
     profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    order = models.PositiveIntegerField(default=1,null=True,blank=True)
     title = models.CharField(max_length=255)
     description = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
@@ -213,7 +213,7 @@ class Additional(models.Model):
 
 class Language(models.Model):
     profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
-    order = models.PositiveIntegerField(default=0,null=True,blank=True)
+    order = models.PositiveIntegerField(default=1,null=True,blank=True)
     LANGUAGE_LEVEL = ((1, "Native"), (2, "Beginner"), (3, "Elementary"),
                       (4, "Intermediate"), (5, "Upper intermediate"),
                       (6, "Advanced"), (7, "Proficient"))

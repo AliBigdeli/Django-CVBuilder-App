@@ -49,6 +49,34 @@ class WorkDetailView(generics.RetrieveUpdateDestroyAPIView):
         return get_object_or_404(WorkExperience, pk=self.kwargs.get('work_id'), profile__id=self.kwargs.get('profile_id'))
 
 
+class WorkMoveView(generics.GenericAPIView):
+    serializer_class = WorkOrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new_order = serializer.validated_data['order']
+        obj = get_object_or_404(WorkExperience,pk=serializer.validated_data['item_id'])
+        # Make sure we received an order
+        if new_order is None:
+            return Response(
+                data={'error': 'No order given'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        # Make sure our new order is not below one
+        if int(new_order) < 1:
+            return Response(
+                data={'error': 'Order cannot be zero or below'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        WorkExperience.objects.move(obj, new_order)
+
+        return Response({'success': True, 'order': new_order})
+
+
 class EducationListCreateView(generics.ListCreateAPIView):
     serializer_class = EducationSerializer
     permission_classes = [IsAuthenticated]
