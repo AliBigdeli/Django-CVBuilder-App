@@ -6,7 +6,7 @@ class UserProfileForm(forms.ModelForm):
     
     class Meta:
         model = UserProfile
-        fields = ['avatar','first_name','last_name','phone_number','email','country','years_level']
+        fields = ['avatar','first_name','last_name','phone_number','email','title','country','years_level','about']
         
     
     def __init__(self, *args, **kwargs):
@@ -19,5 +19,7 @@ class UserProfileForm(forms.ModelForm):
         self.fields['email'].widget.attrs.update({'class': "form-control required","placeholder":"example@gmail.com"})
         self.fields['country'].widget.attrs.update({'class': "form-control required","placeholder":"eg. UAE"})
         self.fields['years_level'].widget.attrs.update({'class': "form-control required"})
+        self.fields['title'].widget.attrs.update({'class': "form-control required"})
+        self.fields['about'].widget.attrs.update({'class': "form-control required"})
         
         

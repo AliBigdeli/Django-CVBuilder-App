@@ -11,7 +11,7 @@ from django.contrib.auth.mixins import (
 from django.views.decorators.cache import cache_page
 from django.utils.decorators import method_decorator
 from cv_builder.forms import UserProfileForm
-from cv_builder.models import UserProfile
+from cv_builder.models import *
 # Create your views here.
 
 
@@ -88,3 +88,20 @@ class DashboardMoreView(LoginRequiredMixin, DetailView):
 class DashboardFinalizeView(LoginRequiredMixin, DetailView):
     template_name = 'dashboard/profile_finalize_mgmt.html'
     queryset = UserProfile.objects.all()
+    
+    
+class DashboardTemplateShowView(LoginRequiredMixin, DetailView):
+    template_name = 'cv_sample/sample_1.html'
+    queryset = UserProfile.objects.all()
+    
+    def get_context_data(self, **kwargs):
+        response = super().get_context_data(**kwargs)
+        response["skills"] = Skill.objects.filter(profile=self.get_object()).order_by("order")
+        response["works"] = WorkExperience.objects.filter(profile=self.get_object()).order_by("order")
+        response["educations"] = EducationExperience.objects.filter(profile=self.get_object()).order_by("order")
+        response["achievements"] = Achievement.objects.filter(profile=self.get_object()).order_by("order")
+        response["affiliates"] = Affiliate.objects.filter(profile=self.get_object()).order_by("order")
+        response["links"] = Link.objects.filter(profile=self.get_object()).order_by("order")
+        response["certifications"] = Certification.objects.filter(profile=self.get_object()).order_by("order")
+        response["languages"] = Language.objects.filter(profile=self.get_object()).order_by("order")
+        return response

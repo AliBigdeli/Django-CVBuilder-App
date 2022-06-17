@@ -18,6 +18,7 @@ class UserProfile(models.Model):
         upload_to="images/avatar/", blank=True, null=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    title = models.CharField(max_length=255,null=True)
     phone_number = models.CharField(max_length=255,blank=True, null=True)
     about = models.TextField(blank=True, null=True)
     email = models.EmailField(max_length=255)

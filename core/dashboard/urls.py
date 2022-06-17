@@ -19,6 +19,7 @@ urlpatterns = [
     path("profile/<int:pk>/certification/",views.DashboardCertificationView.as_view(),name="certification-mgmt"),
     path("profile/<int:pk>/language/",views.DashboardLanguageView.as_view(),name="language-mgmt"),
     path("profile/<int:pk>/finalize/",views.DashboardFinalizeView.as_view(),name="finalize-mgmt"),
+    path("profile/<int:pk>/template/",views.DashboardTemplateShowView.as_view(),name="template-show"),
     # path("profile/<int:pk>/additional/",views.DashboardAdditionalView.as_view(),name="additional-mgmt"),
 ]
 
