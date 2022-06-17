@@ -9,12 +9,17 @@ from django.shortcuts import get_object_or_404
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        fields = ["id","avatar","first_name","last_name","phone_number","about","email","country","years_level","created_date",'updated_date']
 
     def create(self, validated_data):
         request = self.context.get('request', None)
         validated_data['user'] = request.user
         return super().create(validated_data)
+    
+    def to_representation(self, instance):
+        rep = super().to_representation(instance)
+        rep['finalize_url'] = reverse("dashboard:finalize-mgmt",kwargs={'pk':instance.pk})
+        return rep
 
 
 class WorkSerializer(serializers.ModelSerializer):

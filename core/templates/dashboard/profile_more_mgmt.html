@@ -35,8 +35,7 @@
             <!-- Wizard navigation-->
             <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
                 <!-- Wizard navigation item 1-->
-                <a class="nav-item nav-link  disabled" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard1" aria-selected="true">
+                <a class="nav-item nav-link " href="{% url 'dashboard:profile-edit' pk=object.id %}">
                     <div class="wizard-step-icon">1</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Heading</div>
@@ -44,8 +43,7 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 2-->
-                <a class="nav-item nav-link  disabled" id="wizard2-tab" href="#wizard2" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard2" aria-selected="true">
+                <a class="nav-item nav-link " id="wizard2-tab" href="{% url 'dashboard:work-mgmt' pk=object.id %}" >
                     <div class="wizard-step-icon">2</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Work History</div>
@@ -53,8 +51,7 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 3-->
-                <a class="nav-item nav-link  disabled" id="wizard3-tab" href="#wizard3" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard3" aria-selected="true">
+                <a class="nav-item nav-link "  href="{% url 'dashboard:education-mgmt' pk=object.id %}">
                     <div class="wizard-step-icon">3</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Education</div>
@@ -62,8 +59,7 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 4-->
-                <a class="nav-item nav-link disabled" id="wizard4-tab" href="#wizard4" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard4" aria-selected="true">
+                <a class="nav-item nav-link " href="{% url 'dashboard:skill-mgmt' pk=object.id %}">
                     <div class="wizard-step-icon">4</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Skills</div>
@@ -71,8 +67,7 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 5-->
-                <a class="nav-item nav-link active disabled" id="wizard5-tab" href="#wizard5" data-bs-toggle="tab"
-                    role="tab" aria-controls="wizard4" aria-selected="true">
+                <a class="nav-item nav-link active disabled" href="{% url 'dashboard:more-mgmt' pk=object.id %}">
                     <div class="wizard-step-icon">5</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Additional</div>
@@ -80,8 +75,7 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 6-->
-                <a class="nav-item nav-link disabled" id="wizard6-tab" href="#wizard6" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard6" aria-selected="true">
+                <a class="nav-item nav-link " href="{% url 'dashboard:finalize-mgmt' pk=object.id %}">
                     <div class="wizard-step-icon">6</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Finalize</div>

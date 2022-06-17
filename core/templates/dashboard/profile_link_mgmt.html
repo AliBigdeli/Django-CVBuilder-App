@@ -34,45 +34,8 @@
         <div class="card-header border-bottom">
             <!-- Wizard navigation-->
             <div class="nav nav-pills nav-justified flex-column flex-xl-row nav-wizard" id="cardTab" role="tablist">
-                <!-- Wizard navigation item 1-->
-                <a class="nav-item nav-link  disabled" id="wizard1-tab" href="#wizard1" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard1" aria-selected="true">
-                    <div class="wizard-step-icon">1</div>
-                    <div class="wizard-step-text">
-                        <div class="wizard-step-text-name">Heading</div>
-                        <!-- <div class="wizard-step-text-details">Put some Info about the user</div> -->
-                    </div>
-                </a>
-                <!-- Wizard navigation item 2-->
-                <a class="nav-item nav-link  disabled" id="wizard2-tab" href="#wizard2" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard2" aria-selected="true">
-                    <div class="wizard-step-icon">2</div>
-                    <div class="wizard-step-text">
-                        <div class="wizard-step-text-name">Work History</div>
-                        <!-- <div class="wizard-step-text-details">Who is going to manage it</div> -->
-                    </div>
-                </a>
-                <!-- Wizard navigation item 3-->
-                <a class="nav-item nav-link  disabled" id="wizard3-tab" href="#wizard3" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard3" aria-selected="true">
-                    <div class="wizard-step-icon">3</div>
-                    <div class="wizard-step-text">
-                        <div class="wizard-step-text-name">Education</div>
-                        <!-- <div class="wizard-step-text-details">Notification and account options</div> -->
-                    </div>
-                </a>
-                <!-- Wizard navigation item 4-->
-                <a class="nav-item nav-link  disabled" id="wizard4-tab" href="#wizard4" data-bs-toggle="tab"
-                    role="tab" aria-controls="wizard4" aria-selected="true">
-                    <div class="wizard-step-icon">4</div>
-                    <div class="wizard-step-text">
-                        <div class="wizard-step-text-name">Skills</div>
-                        <!-- <div class="wizard-step-text-details">Notification and account options</div> -->
-                    </div>
-                </a>
                 <!-- Wizard navigation item 5-->
-                <a class="nav-item nav-link active disabled" id="wizard5-tab" href="#wizard5" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard4" aria-selected="true">
+                <a class="nav-item nav-link  disabled" href="{% url 'dashboard:more-mgmt' pk=object.pk %}">
                     <div class="wizard-step-icon">5</div>
                     <div class="wizard-step-text">
                         <div class="wizard-step-text-name">Additional</div>
@@ -80,11 +43,43 @@
                     </div>
                 </a>
                 <!-- Wizard navigation item 6-->
-                <a class="nav-item nav-link disabled" id="wizard6-tab" href="#wizard6" data-bs-toggle="tab" role="tab"
-                    aria-controls="wizard6" aria-selected="true">
-                    <div class="wizard-step-icon">6</div>
+                <a class="nav-item nav-link  "
+                    href="{% url 'dashboard:achievement-mgmt' pk=object.pk %}">
+                    <div class="wizard-step-icon">5-1</div>
                     <div class="wizard-step-text">
-                        <div class="wizard-step-text-name">Finalize</div>
+                        <div class="wizard-step-text-name">Achievement</div>
+                        <!-- <div class="wizard-step-text-details">Notification and account options</div> -->
+                    </div>
+                </a>
+                <!-- Wizard navigation item 5-->
+                <a class="nav-item nav-link " href="{% url 'dashboard:affiliate-mgmt' pk=object.pk %}">
+                    <div class="wizard-step-icon">5-2</div>
+                    <div class="wizard-step-text">
+                        <div class="wizard-step-text-name">Affiliation</div>
+                        <!-- <div class="wizard-step-text-details">Notification and account options</div> -->
+                    </div>
+                </a>
+                <!-- Wizard navigation item 5-->
+                <a class="nav-item nav-link disabled active" href="{% url 'dashboard:link-mgmt' pk=object.pk %}">
+                    <div class="wizard-step-icon">5-3</div>
+                    <div class="wizard-step-text">
+                        <div class="wizard-step-text-name">Links</div>
+                        <!-- <div class="wizard-step-text-details">Notification and account options</div> -->
+                    </div>
+                </a>
+                <!-- Wizard navigation item 5-->
+                <a class="nav-item nav-link " href="{% url 'dashboard:certification-mgmt' pk=object.pk %}">
+                    <div class="wizard-step-icon">5-4</div>
+                    <div class="wizard-step-text">
+                        <div class="wizard-step-text-name">Certifications</div>
+                        <!-- <div class="wizard-step-text-details">Notification and account options</div> -->
+                    </div>
+                </a>
+                <!-- Wizard navigation item 5-->
+                <a class="nav-item nav-link " href="{% url 'dashboard:language-mgmt' pk=object.pk %}">
+                    <div class="wizard-step-icon">5-5</div>
+                    <div class="wizard-step-text">
+                        <div class="wizard-step-text-name">Languages</div>
                         <!-- <div class="wizard-step-text-details">Notification and account options</div> -->
                     </div>
                 </a>
