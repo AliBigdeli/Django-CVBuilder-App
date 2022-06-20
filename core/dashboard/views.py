@@ -31,6 +31,9 @@ class DashboardProfileCreateView(LoginRequiredMixin,CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form) 
 
+    def get_success_url(self):
+        return reverse('dashboard:profile-edit',kwargs={'pk':self.object.id})
+    
 class DashboardProfileEditView(LoginRequiredMixin,UpdateView):
     template_name = 'dashboard/profile_edit.html'
     form_class = UserProfileForm
